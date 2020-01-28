@@ -1,0 +1,322 @@
+**
+**	$Id: CHANGES.DOC,v 23.2 93/05/24 16:03:22 chris Exp $
+**
+**	$Author: Christian A. Weber $
+**	$Release: 23.2 $
+**	$Date: 93/05/24 16:03:22 $
+**
+
+
+
+
+CHANGES FOR V23.2 (24-May-93)
+-----------------
+
+* The library no longer has a (unused) data hunk. This reduces its size.
+
+* iff.lib now has a version string.
+
+
+CHANGES FOR V23.1 (23-May-93, not released)
+-----------------
+
+* IFFL_PushChunk() and IFFL_PopChunk() know how to deal with nested FORMs.
+  The FORM type can be written manually (with a WriteChunkBytes() after
+  the IFFL_PushChunk(..., ID_FORM), or automatically.
+
+
+CHANGES FOR V22.4 (02-Jun-92)
+-----------------
+
+* IFFL_GetViewModes() doesn't set the HAM bit anymore if the IFF file has
+  no CAMG chunk. This is required for the AGA modes to work.
+
+
+CHANGES FOR V22.3
+-----------------
+
+* IFFL_SaveClip() and IFFL_SaveBitMap() won't crash on 68000 processors
+  anymore.
+
+* Minor bugs in documentation fixed.
+
+
+CHANGES FOR V22.2
+-----------------
+
+* Superfluous seeking in IFFL_OpenIFF() removed (occurred only if the
+  file was compressed with xpk)
+
+* On popular demand, the MoviePRO ANIM player (plays Sculpt MOVIE and ANIM5)
+  is now included. It's still a BETA version, so use with care...
+
+
+CHANGES FOR V22.1
+-----------------
+
+* iff.library now makes use of the powerful "xpk" data compression standard
+  for the Amiga. If xpkmaster.library is installed, the IFFL_OpenIFF()
+  function (in read mode) will automatically recognize and decompress all
+  IFF files which are compressed with one of the xpk compression schemes.
+  This is totally transparent, and no changes whatsoever are needed.
+
+
+CHANGES FOR V21.2
+-----------------
+
+* IFFL_SaveClip() and IFFL_SaveBitMap() are now MUCH faster, and use
+  less stack.
+
+* Decompression is a tad faster, and won't corrupt memory even if
+  the input file was corrupt.
+
+
+CHANGES FOR V21.1
+-----------------
+
+This is a major upgrade. Although old binaries are 100% compatible, the
+programmer's interface changed. Here's what's new:
+
+* New names for library functions, to avoid conflicts with Commodore's
+  "iffparse.library". Basically, each function of iff.library has
+  IFFL_ prepended to its name (IFFL_OpenIFF ...).
+
+* OpenIFF() and NewOpenIFF() are both obsolete now. The former had this
+  design stupidity which would load 8SVX files into CHIP RAM; the latter
+  was added to remedy this situation, but actually the memory attribute
+  parameter of NewOpenIFF() was very rarely needed.
+  Now there's just one IFFL_OpenIFF() function, which behaves like
+  OpenIFF() except that it does NOT load 8SVX files to CHIP RAM.
+  It also has an additional parameter which lets you specify a mode
+  (Read or write).
+
+* A set of powerful IFF writing functions has been added. With these
+  functions, you can create any type of IFF FORM (not just ILBM).
+  Look at the autodocs and example programs for more information.
+
+* If you define the symbol IFFLIB_PRE21NAMES in your source codes, you
+  still can compile them using the old naming conventions. However,
+  you will lose the ability to use iffparse.library in the same source
+  files because of some name clashes.
+
+* In IFFL_SaveClip() and IFFL_SaveBitMap(), the color values are now
+  calculated correctly (multiplied, not shifted).
+
+
+CHANGES FOR V20.1
+-----------------
+
+* No changes to the library, it's still 19.1
+
+* Lots of new features and bug fixes for ShowIFF (COMMAND option,
+  AppIcon mode under Kickstart 2.x, ...), see ShowIFF/ShowIFF.doc
+  for details!
+
+
+
+CHANGES FOR V19.1 (09-Oct-90)
+-----------------
+
+* SaveClip() and SaveBitMap() now correctly write 24 bitplane pictures.
+
+* ShowIFF correctly handles scroll boundaries under Kickstart 2.0, this
+  seems to be a 2.0 bug and so it may break again with new 2.0 releases.
+
+
+CHANGES FOR V18.8
+-----------------
+
+* Modula-2 definition module and example program added, (contributed by
+  Olivier Schraner, thanx!).
+
+* ShowIFF now adjusts the screen size according to the "normal" values
+  stored in GfxBase, for users of MoreRows or Kickstart 2.0.
+
+* ShowIFF no longer crashes if started from WorkBench under Kickstart 2.0.
+  This was actually a bug in my startup code.
+
+* Minor rearrangements in iff.h, iff.i, IFFGlue.asm and example files
+
+* No functional changes to the library (except new version number ;-)
+
+
+CHANGES FOR V18.7 (13-Apr-90)
+-----------------
+
+* You can now use DecodePic() to decode pictures with as many as 24
+  bitplanes. Although the original BitMap structure has only 8 pointers,
+  you can simply add more plane-pointers at the end of the structure.
+  This feature enables my ShowIFF tool to directly display 24-bit pictures
+  (with limited colors, of course).
+
+
+CHANGES FOR V18.6 (11-Apr-90)
+-----------------
+
+* DecodePic() can deal with pictures which have more planes than the
+  destination BitMap. It will decode as many planes as the BitMap.Depth
+  field of your BitMap structure specifies, all other planes will be
+  discarded. As a result of this, the error message IFF_TOOMANYPLANES
+  is now obsolete.
+
+
+CHANGES FOR V18.5 (12-Mar-90)
+-----------------
+
+* OpenIFF() no longer trashes memory if a corrupt FORM (with some random
+  bytes at the end of file, as generated by old DPaint) is loaded.
+
+* SHAM pictures (HAM with palette changes at each line) are now fully
+  supported by ShowIFF.
+
+
+CHANGES FOR V18.4 (28-Feb-90)
+-----------------
+
+* The library now handles poorly written BODY chunks correctly (such as
+  written by old DPaint versions). It can now deal with pictures with
+  a height or depth of 0.
+
+
+CHANGES FOR V18.2 (25-Feb-90)
+-----------------
+
+* The type IFFFILE has been redefined from 'CPTR' to 'void *'. This allows
+  you to use pointers to ULONG as your IFF file handles (which are easier
+  to use, see AnimExample.c), and the compiler won't generate warnings if
+  you pass these variables to the IFF library functions.
+
+* FindChunk() can be called with a chunk ID of 0. It then returns a pointer
+  to the first byte after the end of the current FORM. This can be used
+  by ANIM readers for jumping from FORM to FORM (see example program).
+
+
+CHANGES FOR V18.1 (21-Feb-90)
+-----------------
+
+* New function ModifyFrame(). This functions takes a bitmap and modifies
+  its planes according to a supplied DLTA chunk. This allows you to
+  easily display DPaint III and compatible animations.
+
+* GetViewModes() now correctly masks out the forbidden bits (SPRITES,
+  VP_HIDE and genlock). This bug caused pictures with the VP_HIDE bit
+  set not to be displayed at all!
+  It is now safe to put the result of GetViewModes() directly to the
+  NewScreen.ViewModes field, as it was supposed to.
+  Note that GetViewModes() now returns the full 32 bit CAMG entry, so
+  the prototype for GetViewModes() has changed from UWORD to ULONG.
+  The upper 16 bits of the view modes are reserved for future use by CBM.
+
+* GetColorTab() now correctly masks out the lower 4 bits of the color
+  bytes (These bits are used by some converted Sun rasterfiles).
+
+* The DecodePic() decruncher is more robust, it does not write past the
+  end of the bitmap anymore (remember those nasty 81000007/9 gurus?)
+  If you have pictures which can't be displayed, PLEASE let me know!
+
+* The library base format has changed. Since this structure was never
+  documented, this should not cause any compatibility problems. It is
+  very likely that this structure changes from release to release, so
+  don't use it!
+
+* The name for IffError() in the Assembler include file has changed to
+  IFFError() (IFF in caps) to be compatible with the C names. This
+  requires a global search-and-replace operation on your asm source
+  files.
+
+* The ShowIFF.c example program has been debugged. It should now handle
+  Overscan pictures correctly (in V16.4, it sometimes switched to
+  scrolling-mode if the picture was 480 rows high).
+  The file scanner is no longer recursive, it uses ARP's 'ALL' features.
+  ShowIFF now always returns the memory it allocates.
+
+* There is a new example program 'AnimExample.c'. It loads and displays
+  a DPaint animation, the user can set the speed and number of loops.
+  This example shows how to use the new ModifyFrame() routine.
+
+
+CHANGES FOR V17.x
+-----------------
+
+This version never existed (the IFFLIB17.ZOO release contained iff.lib 16.4).
+To avoid confusion, the new version number is now 18.
+
+
+CHANGES FOR V16.4 (16-May-89)
+-----------------
+
+* The ShowIFF.c example program was completely rewritten. It now uses the
+  ARP library for command line parsing and directory searching. A powerful
+  WorkBench handler has been added which lets you display the pictures in
+  a drawer or an entire disk by selecting the drawer or disk icon and acti-
+  vating the ShowIFF icon with extended selection.
+  If a picture is larger than the screen, you can use the mouse to scroll
+  the screen. (I have some scanned pictures with a resolution of
+  2048x2048 pixels, which can be displayed with 1MB chip ram!)
+
+* The Play8SVX demo has been added. It plays sampled sounds from CLI and
+  WorkBench.
+
+* Internal changes to the library code (I now use the DevPac assembler V2
+  by HiSoft instead of the Manx 3.6  assembler)
+
+
+CHANGES FOR V16.3 (18-Mar-89)
+-----------------
+
+* The BMHD property chunks can now be in any order (which worked for V16.1,
+  but was broken in 16.2).
+
+
+CHANGES FOR V16.2 (03-Mar-89)
+-----------------
+
+* The SaveBitMap/SaveClip() routines sometimes generated a wrong CAMG chunk.
+  This is fixed now.
+
+* There are no more decruncher overruns corrupting the memory list
+
+
+CHANGES FOR V16.1 (01-Dec-88)
+-----------------
+
+Since V15.3 I got lots of suggestions, so I made the following changes.
+Note that this version is fully downward-compatible to V15.3.
+
+* There was a bug in the DecodePic() routine which called the guru if the
+  width of the picture was not a multiple of 16. It's fixed now.
+
+* The GetViewModes() routines now calculates the viewmodes correctly for
+  all picture sizes, including Super-Overscan (produced by DigiView 3.0).
+
+* When you open an IFF file with the OpenIFF() call, memory is allocated
+  and the file is read into that memory. Normally, all files are loaded
+  into whatever memory is available, but '8SVX' files are always loaded to
+  CHIP memory (the memory which is accessable by the Amiga's custom chips).
+  This solution is good for playing IFF sounds, but it is not satisfactory
+  for some other applications. The solution of this problem is quite easy:
+  I added a new routine called 'NewOpenIFF', which allows you to specify
+  the type of memory for the file.
+  So if you want to load an IFF instrument into any RAM, the right command
+  is: 'f=NewOpenIFF(filename,0L)' or 'f=OpenIFF(filename,MEMF_PUBLIC)'.
+  You can use any memory attributes you want (PUBLIC,CHIP,FAST...).
+
+* The file 'iff.h' is now split into two files: 'iff.h', which contains the
+  structure definitions and function declarations, and 'IffGlue.asm',
+  which contains the C to Assembler interface routines. These routines are
+  needed for the Manx C compilere V3.6.
+
+* The file 'IFFPragmas.h" is added to support the Lattice C compiler. It
+  was taken from an usenet article by Lyle E. Levine. (Thanks!)
+
+* The demo file 'ShowIFF.c' now correctly handles overscan pictures.
+
+
+-- [more boring version info deleted] --
+
+
+CHANGES FOR V1.0 (14-Dec-87)
+----------------
+
+* iff.library was born!
+

@@ -1,0 +1,47 @@
+
+                 THE UNIVERSAL IFF LIBRARY FOR THE AMIGA
+
+                         VERSION 23.2, 24-May-93
+
+                                   BY
+
+                           CHRISTIAN A. WEBER
+                              BRUGGERWEG 2
+                             CH-8037 ZURICH
+                              SWITZERLAND
+
+                  INTERNET: weber@amiga.physik.unizh.ch
+                     UUCP: chris@mighty.adsp.sub.org
+          BANG: cbmehq!cbmswi!mighty!chris@cbmvax.commodore.com
+
+
+THIS PROGRAM IS IN THE PUBLIC DOMAIN.  IT MAY BE FREELY DISTRUBUTED, COPIED
+AND USED FOR COMMERCIAL OR NON-COMMERCIAL PURPOSES.   IT MAY BE DISTRIBUTED
+WITH OR WITHOUT THIS DOCUMENTATION FILE. NO WARRANTY. USE AT YOUR OWN RISK.
+
+TO MAINTAIN COMPATIBILITY,  YOU SHOULD NOT MAKE  ANY CHANGES TO THE LIBRARY
+ITSELF.  UPDATES WILL BE RELEASED BY THE AUTHOR.  HOWEVER, YOU  MAY  CHANGE
+THE EXAMPLE SOURCE CODES AND/OR USE THEM IN YOUR OWN PROGRAMS.
+
+
+WHAT IS THE IFF LIBRARY ?
+-------------------------
+
+The iff.library is an easy to  use  Amiga  library  which  gives  you  some
+powerful routines to deal with IFF files, especially ILBM files (pictures),
+ANIM files (animations) and 8SVX files (digitized sounds).
+It was fully written in Assembler and is  only  3.2 KBytes  long.  The  de-
+compression routines are the fastest I've ever written :-)
+To use iff.library, copy it to the 'LIBS:' directory of your boot partition
+or Workbench disk.
+Since the iff.library is a standard Amiga library,  it can be used from any
+programming language such as C, C++, Modula-2, Assembler, Pascal, ARexx and
+many more.
+
+I started writing this library in September 1987, and now it is really bug-
+free (I hope) and it can handle any IFF files I know, including DPaint pic-
+tures with stencils, HAM and halfbrite pictures, ANIM files (with a trick),
+SHAM, AGA and 24bit pictures, SoundFX instruments, and all other IFF FORMs.
+
+If you have questions or suggestions, don't hesitate to contact me!
+

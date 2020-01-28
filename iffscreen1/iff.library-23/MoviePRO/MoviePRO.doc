@@ -1,0 +1,195 @@
+
+          MoviePRO - an ANIM player for Movie and ANIM5 animations
+          --------------------------------------------------------
+
+                         Version Beta 4, 14-Feb-91
+
+
+                      This program and iff.library by:
+
+        Christian A. Weber, Bruggerweg 2, CH-8037 Zürich, SWITZERLAND
+
+           Any suggestions or bug reports are welcome, e-mail to:
+
+    UUCP:     {uunet|pyramid|rutgers}!cbmvax!cbmehq!cbmswi!mighty!chris
+    INTERNET: weber@amiga.physik.unizh.ch
+
+
+
+THIS PROGRAM IS IN THE PUBLIC DOMAIN.  IT MAY BE FREELY DISTRUBUTED, COPIED
+AND USED FOR COMMERCIAL OR NON-COMMERCIAL PURPOSES. YOU ARE ALLOWED TO MAKE
+CHANGES TO THE SHOWIFF.* FILES AS LONG AS YOU CLEARLY MARK THE CHANGES.
+
+
+DISCLAIMER
+
+THIS SOFTWARE IS PROVIDED "AS IS".
+NO REPRESENTATIONS OR WARRANTIES ARE MADE WITH RESPECT TO THE ACCURACY,
+RELIABILITY, PERFORMANCE, CURRENTNESS, OR OPERATION OF THIS SOFTWARE, AND
+ALL USE IS AT YOUR OWN RISK. YOU ALREADY KNEW THAT, DIDN'T YOU. THE AUTHOR
+ASSUMES NO RESPONSIBILITY OR LIABILITY WHATSOEVER WITH RESPECT TO YOUR USE
+OR INABILITY TO USE OF THIS SOFTWARE.
+
+
+                                    ***
+
+
+FEATURES
+--------
+
+- Plays Movie animations (Created with Sculpt 3D/4D or DILBM/PILBM) and
+  ANIM5 animations (Videoscape, DPaint...).
+
+- Runs from both Workbench and CLI, creates an AppIcon under Kickstart 2.x
+
+- Uses double-buffering for best results
+
+- Is fully multi-tasking compatible!
+
+
+
+REQUIREMENTS
+------------
+
+MoviePRO requires the arp.library and, of course, the iff.library. These
+two files should be located in the LIBS: directory.
+
+Currently, MoviePRO requires 10 KBytes of stack. Make sure you set this
+stack size in EVERY animation's icon, or a guru will visit you!
+
+Note: This is only a beta release and has many bugs! Beware!
+
+
+
+WORKBENCH USAGE
+---------------
+
+
+Under Kickstart 1.3:
+
+  Select all animations you wish to view while pressing the SHIFT key, then
+  double-click the MoviePRO icon.
+
+  You can also set the animation's default tool to MoviePRO using WorkBench's
+  'Info' feature. You must set the stack size to at least 10K in the icon.
+  If you wish to display all the animations in a drawer, select the drawer,
+  and while depressing the SHIFT key, double-click the MoviePRO icon. This
+  works even with disk icons!
+  If a drawer or disk contains another drawer, the animations in that drawer
+  will also be displayed.
+
+
+Under Kickstart 2.x:
+
+  Under Kickstart 2.x you have an additional possibility, which you may
+  prefer once you are familiar with Kickstart 2.x: You can put MoviePRO in
+  your WBStartup drawer. When you boot your Amiga, MoviePRO is automatically
+  started and creates an "AppIcon". This icon looks like any other icon, and
+  you can freely chose it's name and it's position (see below). But this
+  icon has an interesting feature: You can view an animation by simply
+  dragging the icon of that animation on MoviePRO's AppIcon. This works for
+  drawers and disks too, of course.
+  If you wish to remove the MoviePRO AppIcon, simply start MoviePRO again.
+
+
+Tool Types:
+
+  MoviePRO understands several tool types. You can edit them using the
+  "Show Information" or "Info" commands from the Workbench menu. Here's
+  a list of the recognized tool types:
+
+  ICONXPOS     Specifies the x coordinate of MoviePRO's AppIcon. This works
+               only under Kickstart 2.x and above.
+               Example: ICONXPOS=620
+
+  ICONYPOS     Specifies the y coordinate of MoviePRO's AppIcon. This works
+               only under Kickstart 2.x and above.
+               Example: ICONYPOS=120
+
+  ICONNAME     Specifies the name of MoviePRO's AppIcon (Only Kickstart 2.x).
+               Example: ICONNAME=Animation Player
+
+  OPTIONS      Here you can specify several options, in the same format as
+               if you would enter them from CLI. Works under 1.3 too.
+               Example: OPTIONS=ALL LOOP 5 NOOVERSCAN
+
+  TASKPRI      If you have a slow processor or a complex animation, MoviePRO
+               needs more processor time to display the animation in the
+               desired speed. If you set TASKPRI to some value higher than 0,
+               MoviePRO will run slightly faster. Note that in this case
+               you should not run any time-critical software (such as terminal
+               programs) while playing animations. TASKPRI can be set to any
+               value between -128 and 127.
+               Example: TASKPRI=50
+
+
+
+CLI USAGE
+---------
+
+
+The template is:
+
+Patterns/...,ALL/s,C=CONTINUOUS/k,L=LOOP/k,T=TIMING/k,NO=NOOVERSCAN/s,V=VERBOSE/s
+
+MoviePRO <patterns> [ALL] [CONTINUOUS num] [LOOP num] [TIMING jiffies]
+         [NOOVERSCAN]
+
+
+Example: MoviePRO Anim/* Sculpt/foo.anim CONTINUOUS 32000 TIMING 3
+
+
+patterns       can be any number of file names, directories or disk names.
+               All of the ARP wildcards can be used. (?,*,#?,...)
+
+ALL            if this keyword is specified, animations in sub-directories
+               will also be shown.
+
+CONTINUOUS n   This determines how many times the animation is displayed.
+
+LOOP n         With LOOP you can specify how many times the animation is
+               played, but not continuously. This is for animations which
+               are not designed as endless-loop-animations.
+
+TIMING n       specifies the delay between the frames of the animation, in
+               jiffies. Note that if you have a complex animation or a slow
+               processor, values lower than three (3) are not guaranteed to
+               give the desired results.
+
+NOOVERSCAN     display all animations in the size of the Workbench screen, and
+               never in overscan. This is not very useful ;-)
+
+VERBOSE        This is only for debugging and should never be used.
+
+
+
+KEYS AND MOUSE-BUTTONS
+----------------------
+
+While an animation is displayed, you can press the following keys:
+
+
+LEFT MOUSE BUTTON
+
+  Display the next animation. If there are no more animations to show,
+  MoviePRO closes its window and terminates.
+  If in AppIcon mode, MoviePRO closes its window and waits for new animations.
+
+
+RIGHT MOUSE BUTTON
+
+  Abort immediately
+
+
+Ctrl-C (if the MoviePRO window or the CLI window is active)
+
+  Abort immediately
+
+
+Ctrl-E (if the MoviePRO window or the CLI window is active)
+
+  If you started MoviePRO from Workbench, ore enabled the "ALL" option from
+  CLI, pressing Ctrl-E will skip all animations in the current sub-directory,
+  and return to the parent-directory (like in the CLI "Dir" command).
+
+

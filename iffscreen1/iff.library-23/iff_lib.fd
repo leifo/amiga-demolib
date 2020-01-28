@@ -1,0 +1,46 @@
+**
+**	$Id: iff_lib.fd,v 23.2 93/05/24 16:03:15 chris Exp $
+**	$Revision: 23.2 $
+**
+**	$Filename: iff_lib.fd $
+**	$Author: Christian A. Weber $
+**	$Release: 23.2 $
+**	$Date: 93/05/24 16:03:15 $
+**
+**	fd file for iff.library
+**
+**	COPYRIGHT (C) 1987-1992 BY CHRISTIAN A. WEBER, BRUGGERWEG 2,
+**	CH-8037 ZUERICH, SWITZERLAND.
+**	THIS FILE MAY BE FREELY DISTRIBUTED. USE AT YOUR OWN RISK.
+**
+##base _IFFBase
+##bias 30
+##private
+IFFL_OldOpenIFF(filename)(A0)
+##public
+IFFL_CloseIFF(ifffile)(A1)
+IFFL_FindChunk(ifffile,chunkname)(A1,D0)
+IFFL_GetBMHD(ifffile)(A1)
+IFFL_GetColorTab(ifffile,colortable)(A1/A0)
+IFFL_DecodePic(ifffile,bitmap)(A1/A0)
+IFFL_SaveBitMap(name,bmap,ctab,crmd)(A0/A1/A2,D0)
+IFFL_SaveClip(name,bmap,ctab,crmd,x,y,w,h)(A0/A1/A2,D0/D1/D2/D3/D4)
+IFFL_IFFError()()
+IFFL_GetViewModes(ifffile)(A1)
+##private
+IFFL_OldNewOpenIFF(filename,memtype)(A0,D0)
+##public
+IFFL_ModifyFrame(modifyform,bitmap)(A1/A0)
+##private
+IFFL_OldPPOpenIFF(filename,password)(A0/A1)
+##public
+*--- (2 function slots reserved here) ---
+##bias 120
+*--- functions in V21 or higher ---
+IFFL_OpenIFF(filename,mode)(A0,D0)
+IFFL_PushChunk(iff,type,id)(A0,D0/D1)
+IFFL_PopChunk(iff)(A0)
+IFFL_WriteChunkBytes(iff,buf,size)(A0/A1,D0)
+IFFL_CompressBlock(source,destination,size,mode)(A0/A1,D0/D1)
+IFFL_DecompressBlock(source,destination,size,mode)(A0/A1,D0/D1)
+##end
