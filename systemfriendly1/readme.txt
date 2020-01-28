@@ -1,0 +1,1 @@
+systemfriendly test 1, hardware hitting from assembler
