@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"gcc8_c_support.h": "c",
+			"exec.h": "c",
+			"intbits.h": "c",
+			"dmabits.h": "c",
+			"gfxbase.h": "c"
+		}
+	}
+}

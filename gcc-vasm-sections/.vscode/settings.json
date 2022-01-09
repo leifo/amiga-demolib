@@ -1,0 +1,10 @@
+{
+    "C_Cpp.default.compilerPath": "%USERPROFILE%\\.vscode\\extensions\\bartmanabyss.amiga-debug-1.0.0\\bin\\opt\\bin\\m68k-amiga-elf-gcc.exe",
+    "files.associations": {
+        "gcc8_c_support.h": "c",
+        "exec.h": "c",
+        "intbits.h": "c",
+        "dmabits.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}

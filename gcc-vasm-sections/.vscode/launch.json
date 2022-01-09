@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "type": "amiga",
+            "request": "launch",
+            "preLaunchTask": "compile",
+            "name": "Amiga 500",
+            "config": "A500",
+            "program": "${workspaceFolder}/a.mingw",
+            "kickstart": "c:/amiga/KICK13.rom",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "amiga",
+            "request": "launch",
+            "preLaunchTask": "compile",
+            "name": "Amiga 1200",
+            "config": "A1200",
+            "program": "${workspaceFolder}/a.mingw",
+            "kickstart": "c:/amiga/KICK31.rom",
+            "internalConsoleOptions": "openOnSessionStart"
+        }
+    ]
+}
